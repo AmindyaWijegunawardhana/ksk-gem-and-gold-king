@@ -25,11 +25,11 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Right Column: Logo Display (5 Cols) */}
-          <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-center items-center">
+          <div className="lg:col-span-5 p-4 sm:p-6 flex flex-col justify-center items-center">
             <img
               src={logo}
               alt="KSK Gem and Gold King Logo"
-              className="w-72 h-72 sm:w-80 sm:h-80 object-cover rounded-full shadow-lg border-4 border-[#C9A227]/30 hover:scale-[1.02] transition-transform duration-500"
+              className="w-80 h-80 md:w-96 md:h-96 lg:w-[440px] lg:h-[440px] object-cover rounded-full shadow-lg border-4 border-[#C9A227]/30 hover:scale-[1.02] transition-transform duration-500"
             />
           </div>
 
