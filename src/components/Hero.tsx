@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
             <img
               src={logo}
               alt="KSK Gem and Gold King Logo"
-              className="w-80 h-80 md:w-96 md:h-96 lg:w-[440px] lg:h-[440px] object-contain p-6 bg-black rounded-full shadow-lg border-4 border-[#C9A227]/30 hover:scale-[1.02] transition-transform duration-500"
+              className="w-72 h-[340px] sm:w-80 sm:h-[380px] lg:w-[340px] lg:h-[420px] object-cover rounded-3xl shadow-lg border-4 border-[#C9A227]/30 hover:scale-[1.02] transition-transform duration-500"
             />
           </div>
 

@@ -12,7 +12,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
 
   // Generate dynamic WhatsApp message
   const orderMessage = `Hi, I'm interested in ordering: ${item.name} - ${item.description} - Price: ${item.price}`;
-  const whatsappUrl = `https://wa.me/94XXXXXXXXX?text=${encodeURIComponent(orderMessage)}`;
+  const whatsappUrl = `https://wa.me/94777935306?text=${encodeURIComponent(orderMessage)}`;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">

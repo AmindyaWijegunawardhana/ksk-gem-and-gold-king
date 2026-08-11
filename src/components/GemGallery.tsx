@@ -95,7 +95,7 @@ export const GemGallery: React.FC<GemGalleryProps> = ({ catalog }) => {
             {filteredCatalog.map((item) => {
               // Place Order WhatsApp link
               const orderText = `Hi, I'm interested in ordering: ${item.name} - ${item.description} - Price: ${item.price}`;
-              const whatsappUrl = `https://wa.me/94XXXXXXXXX?text=${encodeURIComponent(orderText)}`;
+              const whatsappUrl = `https://wa.me/94777935306?text=${encodeURIComponent(orderText)}`;
 
               return (
                 <div
