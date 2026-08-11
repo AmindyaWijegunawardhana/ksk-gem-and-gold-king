@@ -1,0 +1,8 @@
+{
+  "name": "KSK Gem and Gold King",
+  "description": "Premium international gemstone and Gold sourcing portal with catalog showcase, custom inquiries, and live catalog management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
