@@ -21,8 +21,9 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 }) => {
   // Login State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   // Catalog Item Form Modal (Add / Edit)
   const [catalogFormOpen, setCatalogFormOpen] = useState(false);
@@ -67,7 +68,12 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsAuthenticated(true);
+    if (username === 'admin' && password === 'admin123') {
+      setIsAuthenticated(true);
+      setError('');
+    } else {
+      setError('Invalid username or password.');
+    }
   };
 
   // Open Form for Add
@@ -220,10 +226,14 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   <Lock className="w-6 h-6" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-[#0B2545]">Admin Authentication</h3>
-                <p className="text-xs text-slate-500">
-                  Demo Mode: Click Log In directly with pre-filled credentials (<span className="font-semibold text-slate-700">admin / admin123</span>).
-                </p>
               </div>
+
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>{error}</span>
+                </div>
+              )}
 
               <form onSubmit={handleLogin} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-4">
                 <div>
