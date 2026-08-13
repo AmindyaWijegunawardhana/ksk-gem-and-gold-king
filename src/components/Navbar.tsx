@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
           <span className="h-4 w-px bg-slate-400/30" aria-hidden="true"></span>
           <div className="flex items-center gap-4">
             <a
-              href="https://www.facebook.com"
+              href="https://web.facebook.com/profile.php?id=61592920243246"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-200 hover:text-[#C9A227] transition-all hover:scale-110"
@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
               <Facebook className="w-4 h-4" />
             </a>
             <a
-              href="https://www.tiktok.com"
+              href="https://vm.tiktok.com/ZS9kjkkAR7WDN-NQ74o/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-200 hover:text-[#C9A227] transition-all hover:scale-110"
@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
             </button>
             <div className="flex items-center justify-center gap-6 pt-3 border-t border-blue-900/40">
               <a
-                href="https://www.facebook.com"
+                href="https://web.facebook.com/profile.php?id=61592920243246"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-300 hover:text-[#C9A227] transition-colors flex items-center gap-2 text-xs font-semibold uppercase tracking-wider"

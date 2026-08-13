@@ -40,7 +40,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
             </div>
             <div className="flex items-center gap-3">
               <a
-                href="https://www.facebook.com"
+                href="https://web.facebook.com/profile.php?id=61592920243246"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-7 h-7 rounded-full bg-blue-950/40 border border-blue-800/40 flex items-center justify-center text-gray-300 hover:text-[#C9A227] hover:bg-blue-900/50 transition-colors"
@@ -49,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                 <Facebook className="w-3.5 h-3.5" />
               </a>
               <a
-                href="https://www.tiktok.com"
+                href="https://vm.tiktok.com/ZS9kjkkAR7WDN-NQ74o/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-7 h-7 rounded-full bg-blue-950/40 border border-blue-800/40 flex items-center justify-center text-gray-300 hover:text-[#C9A227] hover:bg-blue-900/50 transition-colors"
