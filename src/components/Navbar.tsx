@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Facebook } from 'lucide-react';
+import { Menu, X, Facebook, Instagram } from 'lucide-react';
 import logo from '@/assets/logo.jpeg';
 
 const Tiktok = (props: React.SVGProps<SVGSVGElement>) => (
@@ -68,6 +68,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
               <Facebook className="w-4 h-4" />
             </a>
             <a
+              href="https://www.instagram.com/kskgemandgoldking/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-200 hover:text-[#C9A227] transition-all hover:scale-110"
+              title="Instagram"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a
               href="https://vm.tiktok.com/ZS9kjkkAR7WDN-NQ74o/"
               target="_blank"
               rel="noopener noreferrer"
@@ -116,21 +125,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin }) => {
             >
               Admin Portal
             </button>
-            <div className="flex items-center justify-center gap-6 pt-3 border-t border-blue-900/40">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-3 border-t border-blue-900/40">
               <a
                 href="https://web.facebook.com/profile.php?id=61592920243246"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-300 hover:text-[#C9A227] transition-colors flex items-center gap-2 text-xs font-semibold uppercase tracking-wider"
+                className="text-slate-300 hover:text-[#C9A227] transition-colors flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider"
               >
                 <Facebook className="w-4 h-4" />
                 <span>Facebook</span>
               </a>
               <a
-                href="https://www.tiktok.com"
+                href="https://www.instagram.com/kskgemandgoldking/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-300 hover:text-[#C9A227] transition-colors flex items-center gap-2 text-xs font-semibold uppercase tracking-wider"
+                className="text-slate-300 hover:text-[#C9A227] transition-colors flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider"
+              >
+                <Instagram className="w-4 h-4" />
+                <span>Instagram</span>
+              </a>
+              <a
+                href="https://vm.tiktok.com/ZS9kjkkAR7WDN-NQ74o/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-300 hover:text-[#C9A227] transition-colors flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider"
               >
                 <Tiktok className="w-4 h-4" />
                 <span>TikTok</span>

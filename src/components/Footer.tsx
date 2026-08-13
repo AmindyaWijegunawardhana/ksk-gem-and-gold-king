@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Mail, Phone, MapPin, Facebook } from 'lucide-react';
+import { Lock, Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 
 const Tiktok = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -47,6 +47,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                 title="Follow us on Facebook"
               >
                 <Facebook className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href="https://www.instagram.com/kskgemandgoldking/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-7 h-7 rounded-full bg-blue-950/40 border border-blue-800/40 flex items-center justify-center text-gray-300 hover:text-[#C9A227] hover:bg-blue-900/50 transition-colors"
+                title="Follow us on Instagram"
+              >
+                <Instagram className="w-3.5 h-3.5" />
               </a>
               <a
                 href="https://vm.tiktok.com/ZS9kjkkAR7WDN-NQ74o/"
