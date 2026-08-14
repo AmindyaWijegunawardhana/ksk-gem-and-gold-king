@@ -89,18 +89,24 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                 
                 {item.category === 'Gems' ? (
                   <>
-                    <div className="flex justify-between py-1 border-b border-gray-200/60 text-[11px]">
-                      <span className="text-gray-500">Carat Weight:</span>
-                      <span className="font-bold text-gray-800">{item.caratWeight || 'N/A'}</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-gray-200/60 text-[11px]">
-                      <span className="text-gray-500">Clarity & Color:</span>
-                      <span className="font-bold text-gray-800">{item.clarityColor || 'N/A'}</span>
-                    </div>
-                    <div className="flex justify-between py-1 text-[11px]">
-                      <span className="text-gray-500">Origin / Certification:</span>
-                      <span className="font-bold text-emerald-700">GIA / CGL Certified</span>
-                    </div>
+                    {[
+                      { label: 'Attribute 1', value: item.caratWeight },
+                      { label: 'Attribute 2', value: item.clarityColor },
+                      { label: 'Attribute 3', value: item.treatment },
+                      { label: 'Attribute 4', value: item.gemAttribute4 },
+                      { label: 'Attribute 5', value: item.gemAttribute5 },
+                      { label: 'Attribute 6', value: item.gemAttribute6 },
+                    ].map((attr, idx, arr) => {
+                      if (!attr.value) return null;
+                      // Determine if it is the last visible item to remove border
+                      const isLast = !arr.slice(idx + 1).some(a => a.value);
+                      return (
+                        <div key={idx} className={`flex justify-between py-1 text-[11px] ${isLast ? '' : 'border-b border-gray-200/60'}`}>
+                          <span className="text-gray-500">{attr.label}:</span>
+                          <span className="font-bold text-gray-800">{attr.value}</span>
+                        </div>
+                      );
+                    })}
                   </>
                 ) : (
                   <>

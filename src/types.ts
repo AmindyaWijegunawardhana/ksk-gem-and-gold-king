@@ -16,6 +16,9 @@ export interface CatalogItem {
   caratWeight?: string;
   clarityColor?: string;
   treatment?: GemTreatment;
+  gemAttribute4?: string;
+  gemAttribute5?: string;
+  gemAttribute6?: string;
   
   // Gold & Silver / Imitation specific fields
   materialType?: MaterialType;

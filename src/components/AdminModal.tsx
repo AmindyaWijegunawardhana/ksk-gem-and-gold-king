@@ -80,6 +80,9 @@ export const AdminModal: React.FC<AdminModalProps> = ({
     materialType: MaterialType;
     weightGrams: string;
     caratOfSetGem: string;
+    gemAttribute4: string;
+    gemAttribute5: string;
+    gemAttribute6: string;
   }>({
     name: '',
     category: 'Gems',
@@ -92,7 +95,10 @@ export const AdminModal: React.FC<AdminModalProps> = ({
     treatment: 'Unheated',
     materialType: 'Gold',
     weightGrams: '',
-    caratOfSetGem: ''
+    caratOfSetGem: '',
+    gemAttribute4: '',
+    gemAttribute5: '',
+    gemAttribute6: ''
   });
 
   if (!isOpen) return null;
@@ -122,7 +128,10 @@ export const AdminModal: React.FC<AdminModalProps> = ({
       treatment: 'Unheated',
       materialType: 'Gold',
       weightGrams: '',
-      caratOfSetGem: ''
+      caratOfSetGem: '',
+      gemAttribute4: '',
+      gemAttribute5: '',
+      gemAttribute6: ''
     });
     setCatalogFormOpen(true);
   };
@@ -142,7 +151,10 @@ export const AdminModal: React.FC<AdminModalProps> = ({
       treatment: item.treatment || 'Unheated',
       materialType: item.materialType || 'Gold',
       weightGrams: item.weightGrams || '',
-      caratOfSetGem: item.caratOfSetGem || ''
+      caratOfSetGem: item.caratOfSetGem || '',
+      gemAttribute4: item.gemAttribute4 || '',
+      gemAttribute5: item.gemAttribute5 || '',
+      gemAttribute6: item.gemAttribute6 || ''
     });
     setCatalogFormOpen(true);
   };
@@ -169,7 +181,10 @@ export const AdminModal: React.FC<AdminModalProps> = ({
           ? {
             caratWeight: formData.caratWeight,
             clarityColor: formData.clarityColor,
-            treatment: formData.treatment
+            treatment: formData.treatment,
+            gemAttribute4: formData.gemAttribute4,
+            gemAttribute5: formData.gemAttribute5,
+            gemAttribute6: formData.gemAttribute6
           }
           : {
             materialType: formData.materialType,
@@ -192,7 +207,10 @@ export const AdminModal: React.FC<AdminModalProps> = ({
           ? {
             caratWeight: formData.caratWeight,
             clarityColor: formData.clarityColor,
-            treatment: formData.treatment
+            treatment: formData.treatment,
+            gemAttribute4: formData.gemAttribute4,
+            gemAttribute5: formData.gemAttribute5,
+            gemAttribute6: formData.gemAttribute6
           }
           : {
             materialType: formData.materialType,
@@ -683,37 +701,54 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                 <div className="p-3 bg-blue-50/70 rounded-xl border border-blue-200 space-y-3">
                   <h5 className="font-bold text-blue-900 uppercase tracking-wider text-[11px]">Gem Specific Attributes</h5>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
-                    <div>
-                      <label className="block font-semibold text-slate-700 mb-1">Carat Weight</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. 3.25 cts"
-                        value={formData.caratWeight}
-                        onChange={(e) => setFormData({ ...formData, caratWeight: e.target.value })}
-                        className="w-full bg-white border border-slate-300 rounded-lg p-2"
-                      />
-                    </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <input
+                      type="text"
+                      placeholder="Attribute 1 (e.g. 3.42 cts)"
+                      value={formData.caratWeight}
+                      onChange={(e) => setFormData({ ...formData, caratWeight: e.target.value })}
+                      className="w-full bg-white border border-slate-300 rounded-lg p-2"
+                    />
 
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Clarity & Color (e.g. VVS, Royal Blue)"
-                        value={formData.clarityColor}
-                        onChange={(e) => setFormData({ ...formData, clarityColor: e.target.value })}
-                        className="w-full bg-white border border-slate-300 rounded-lg p-2"
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      placeholder="Attribute 2 (e.g. VVS - Royal Blue)"
+                      value={formData.clarityColor}
+                      onChange={(e) => setFormData({ ...formData, clarityColor: e.target.value })}
+                      className="w-full bg-white border border-slate-300 rounded-lg p-2"
+                    />
 
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Treatment (e.g. Unheated, Natural)"
-                        value={formData.treatment}
-                        onChange={(e) => setFormData({ ...formData, treatment: e.target.value })}
-                        className="w-full bg-white border border-slate-300 rounded-lg p-2"
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      placeholder="Attribute 3 (e.g. Unheated)"
+                      value={formData.treatment}
+                      onChange={(e) => setFormData({ ...formData, treatment: e.target.value })}
+                      className="w-full bg-white border border-slate-300 rounded-lg p-2"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Attribute 4"
+                      value={formData.gemAttribute4}
+                      onChange={(e) => setFormData({ ...formData, gemAttribute4: e.target.value })}
+                      className="w-full bg-white border border-slate-300 rounded-lg p-2"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Attribute 5"
+                      value={formData.gemAttribute5}
+                      onChange={(e) => setFormData({ ...formData, gemAttribute5: e.target.value })}
+                      className="w-full bg-white border border-slate-300 rounded-lg p-2"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Attribute 6"
+                      value={formData.gemAttribute6}
+                      onChange={(e) => setFormData({ ...formData, gemAttribute6: e.target.value })}
+                      className="w-full bg-white border border-slate-300 rounded-lg p-2"
+                    />
                   </div>
                 </div>
               )}
