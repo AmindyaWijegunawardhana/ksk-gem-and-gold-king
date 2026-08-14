@@ -16,6 +16,15 @@ export default function App() {
   // Admin Modal Visibility
   const [adminOpen, setAdminOpen] = useState(false);
 
+  // Admin credentials and WhatsApp contact settings
+  const [whatsappNumber, setWhatsappNumber] = useState<string>(() => {
+    return localStorage.getItem('ksk_whatsapp_number') || '+94 77 793 5306';
+  });
+
+  const [adminPassword, setAdminPassword] = useState<string>(() => {
+    return localStorage.getItem('ksk_admin_password') || 'admin123';
+  });
+
   // Fetch catalog from Supabase on mount
   useEffect(() => {
     async function fetchCatalog() {
@@ -100,11 +109,11 @@ export default function App() {
         <Hero />
 
         {/* 3. Gem Gallery (with Theme-Shifting Tabs) */}
-        <GemGallery catalog={catalog} />
+        <GemGallery catalog={catalog} whatsappNumber={whatsappNumber} />
       </main>
 
       {/* 6. Footer */}
-      <Footer onOpenAdmin={() => setAdminOpen(true)} />
+      <Footer onOpenAdmin={() => setAdminOpen(true)} whatsappNumber={whatsappNumber} />
 
       {/* 7. Admin Panel (Demo Dashboard Modal) */}
       <AdminModal
@@ -114,6 +123,16 @@ export default function App() {
         onAddCatalogItem={handleAddCatalogItem}
         onUpdateCatalogItem={handleUpdateCatalogItem}
         onDeleteCatalogItem={handleDeleteCatalogItem}
+        whatsappNumber={whatsappNumber}
+        onUpdateWhatsappNumber={(num) => {
+          setWhatsappNumber(num);
+          localStorage.setItem('ksk_whatsapp_number', num);
+        }}
+        adminPassword={adminPassword}
+        onUpdateAdminPassword={(pwd) => {
+          setAdminPassword(pwd);
+          localStorage.setItem('ksk_admin_password', pwd);
+        }}
       />
     </div>
   );

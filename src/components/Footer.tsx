@@ -18,9 +18,10 @@ const Tiktok = (props: React.SVGProps<SVGSVGElement>) => (
 
 interface FooterProps {
   onOpenAdmin: () => void;
+  whatsappNumber: string;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, whatsappNumber }) => {
   return (
     <footer className="bg-[#1E3A8A] text-white py-6 border-t border-gray-100 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -81,7 +82,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
           <div className="md:col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 md:justify-end text-gray-300">
             <p className="flex items-center gap-1.5">
               <Phone className="w-3.5 h-3.5 text-[#C9A227]" />
-              <span>+94 77 793 5306</span>
+              <span>{whatsappNumber}</span>
             </p>
             <p className="flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5 text-[#C9A227]" />

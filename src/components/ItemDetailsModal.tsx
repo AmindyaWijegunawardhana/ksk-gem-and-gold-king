@@ -5,14 +5,16 @@ import { CatalogItem } from '../types';
 interface ItemDetailsModalProps {
   item: CatalogItem | null;
   onClose: () => void;
+  whatsappNumber: string;
 }
 
-export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClose }) => {
+export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClose, whatsappNumber }) => {
   if (!item) return null;
 
   // Generate dynamic WhatsApp message
   const orderMessage = `Hi, I'm interested in ordering: ${item.name} - ${item.description} - Price: ${item.price}`;
-  const whatsappUrl = `https://wa.me/94777935306?text=${encodeURIComponent(orderMessage)}`;
+  const cleanNumber = whatsappNumber.replace(/\D/g, '');
+  const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(orderMessage)}`;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">

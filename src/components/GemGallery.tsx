@@ -5,6 +5,7 @@ import { Gem } from 'lucide-react';
 
 interface GemGalleryProps {
   catalog: CatalogItem[];
+  whatsappNumber: string;
 }
 
 // Gallery Theme Colors
@@ -15,7 +16,7 @@ const themeColors: Record<GalleryTab, { accent: string; bg: string }> = {
   'Imitation': { accent: '#A8AAAD', bg: '#F4F4F5' },
 };
 
-export const GemGallery: React.FC<GemGalleryProps> = ({ catalog }) => {
+export const GemGallery: React.FC<GemGalleryProps> = ({ catalog, whatsappNumber }) => {
   const [activeTab, setActiveTab] = useState<GalleryTab>('All');
   const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null);
 
@@ -95,7 +96,8 @@ export const GemGallery: React.FC<GemGalleryProps> = ({ catalog }) => {
             {filteredCatalog.map((item) => {
               // Place Order WhatsApp link
               const orderText = `Hi, I'm interested in ordering: ${item.name} - ${item.description} - Price: ${item.price}`;
-              const whatsappUrl = `https://wa.me/94777935306?text=${encodeURIComponent(orderText)}`;
+              const cleanNumber = whatsappNumber.replace(/\D/g, '');
+              const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(orderText)}`;
 
               return (
                 <div
@@ -203,6 +205,7 @@ export const GemGallery: React.FC<GemGalleryProps> = ({ catalog }) => {
       <ItemDetailsModal
         item={selectedItem}
         onClose={() => setSelectedItem(null)}
+        whatsappNumber={whatsappNumber}
       />
     </section>
   );

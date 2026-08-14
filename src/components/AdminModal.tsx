@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CatalogItem, ItemCategory, GemTreatment, MaterialType, ItemAvailability } from '../types';
-import { X, Lock, LogOut, Plus, Edit2, Trash2, Eye, ShieldCheck, CheckCircle2, Search, Filter, AlertCircle, FileText, Upload } from 'lucide-react';
+import { X, Lock, LogOut, Plus, Edit2, Trash2, Eye, ShieldCheck, CheckCircle2, Search, Filter, AlertCircle, FileText, Upload, MessageSquare, Key } from 'lucide-react';
 
 interface AdminModalProps {
   isOpen: boolean;
@@ -9,6 +9,10 @@ interface AdminModalProps {
   onAddCatalogItem: (item: CatalogItem) => void;
   onUpdateCatalogItem: (item: CatalogItem) => void;
   onDeleteCatalogItem: (id: string) => void;
+  whatsappNumber: string;
+  onUpdateWhatsappNumber: (num: string) => void;
+  adminPassword: string;
+  onUpdateAdminPassword: (pwd: string) => void;
 }
 
 export const AdminModal: React.FC<AdminModalProps> = ({
@@ -18,12 +22,39 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   onAddCatalogItem,
   onUpdateCatalogItem,
   onDeleteCatalogItem,
+  whatsappNumber,
+  onUpdateWhatsappNumber,
+  adminPassword,
+  onUpdateAdminPassword,
 }) => {
   // Login State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  // Active Tab inside Dashboard
+  const [activeAdminTab, setActiveAdminTab] = useState<'inventory' | 'settings'>('inventory');
+
+  // Settings Forms State
+  const [newWhatsapp, setNewWhatsapp] = useState(whatsappNumber);
+  const [currentPwd, setCurrentPwd] = useState('');
+  const [newPwd, setNewPwd] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('');
+  const [settingsSuccess, setSettingsSuccess] = useState('');
+  const [settingsError, setSettingsError] = useState('');
+
+  // Sync settings states on modal load
+  useEffect(() => {
+    if (isOpen) {
+      setNewWhatsapp(whatsappNumber);
+      setCurrentPwd('');
+      setNewPwd('');
+      setConfirmPwd('');
+      setSettingsSuccess('');
+      setSettingsError('');
+    }
+  }, [isOpen, whatsappNumber]);
 
   // Catalog Item Form Modal (Add / Edit)
   const [catalogFormOpen, setCatalogFormOpen] = useState(false);
@@ -68,7 +99,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'admin' && password === adminPassword) {
       setIsAuthenticated(true);
       setError('');
     } else {
@@ -270,82 +301,265 @@ export const AdminModal: React.FC<AdminModalProps> = ({
             /* Authenticated Admin Dashboard */
             <div className="space-y-6">
 
-              {/* Top Action Bar */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                <div>
-                  <h4 className="font-serif font-bold text-lg text-[#0B2545]">Live Public Gallery Inventory</h4>
-                  <p className="text-xs text-slate-500">Any changes made here immediately update the main public Gem Gallery in real time.</p>
-                </div>
-
+              {/* Tab Navigation Controls */}
+              <div className="flex border-b border-slate-200 -mx-6 px-6 pb-px gap-6 shrink-0">
                 <button
-                  onClick={handleOpenAddForm}
-                  className="bg-red-700 hover:bg-red-800 text-white font-semibold px-4 py-2.5 rounded-lg text-xs flex items-center gap-2 shadow-md border border-red-600/50 transition-colors"
+                  onClick={() => setActiveAdminTab('inventory')}
+                  className={`pb-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-all ${
+                    activeAdminTab === 'inventory'
+                      ? 'border-red-700 text-[#0B2545]'
+                      : 'border-transparent text-slate-400 hover:text-slate-600'
+                  }`}
                 >
-                  <Plus className="w-4 h-4" />
-                  <span>Add New Catalog Item</span>
+                  Manage Inventory
+                </button>
+                <button
+                  onClick={() => setActiveAdminTab('settings')}
+                  className={`pb-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-all ${
+                    activeAdminTab === 'settings'
+                      ? 'border-red-700 text-[#0B2545]'
+                      : 'border-transparent text-slate-400 hover:text-slate-600'
+                  }`}
+                >
+                  System Settings
                 </button>
               </div>
 
-              {/* Catalog Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {catalog.map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-4 space-y-3 flex flex-col justify-between"
-                  >
-                    <div className="space-y-3">
-                      <div className="relative h-44 rounded-lg overflow-hidden bg-slate-100">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="absolute top-2 left-2 bg-[#0B2545]/90 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded">
-                          {item.category}
-                        </div>
-                        {item.category === 'Gems' && item.treatment && (
-                          <div className="absolute top-2 right-2 bg-blue-900/90 text-blue-100 text-[10px] font-bold px-2 py-0.5 rounded">
-                            {item.treatment}
-                          </div>
-                        )}
-                      </div>
-
-                      <div>
-                        <h5 className="font-serif font-bold text-base text-[#0B2545] line-clamp-1">{item.name}</h5>
-                        <div className="text-sm font-extrabold text-red-700 mt-0.5">{item.price}</div>
-                      </div>
+              {activeAdminTab === 'inventory' ? (
+                <div className="space-y-6">
+                  {/* Top Action Bar */}
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <div>
+                      <h4 className="font-serif font-bold text-lg text-[#0B2545]">Live Public Gallery Inventory</h4>
+                      <p className="text-xs text-slate-500">Any changes made here immediately update the main public Gem Gallery in real time.</p>
                     </div>
 
-                    {/* Card Action Buttons: View / Edit / Delete */}
-                    <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100">
-                      <button
-                        onClick={() => setViewingItem(item)}
-                        className="bg-slate-100 hover:bg-slate-200 text-slate-800 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1 border border-slate-200"
-                      >
-                        <Eye className="w-3 h-3 text-slate-600" />
-                        <span>View</span>
-                      </button>
+                    <button
+                      onClick={handleOpenAddForm}
+                      className="bg-red-700 hover:bg-red-800 text-white font-semibold px-4 py-2.5 rounded-lg text-xs flex items-center gap-2 shadow-md border border-red-600/50 transition-colors"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>Add New Catalog Item</span>
+                    </button>
+                  </div>
 
-                      <button
-                        onClick={() => handleOpenEditForm(item)}
-                        className="bg-blue-50 hover:bg-blue-100 text-blue-900 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1 border border-blue-200"
+                  {/* Catalog Cards Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {catalog.map((item) => (
+                      <div
+                        key={item.id}
+                        className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-4 space-y-3 flex flex-col justify-between"
                       >
-                        <Edit2 className="w-3 h-3 text-blue-700" />
-                        <span>Edit</span>
-                      </button>
+                        <div className="space-y-3">
+                          <div className="relative h-44 rounded-lg overflow-hidden bg-slate-100">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-full h-full object-cover"
+                              referrerPolicy="no-referrer"
+                            />
+                            <div className="absolute top-2 left-2 bg-[#0B2545]/90 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded">
+                              {item.category}
+                            </div>
+                            {item.category === 'Gems' && item.treatment && (
+                              <div className="absolute top-2 right-2 bg-blue-900/90 text-blue-100 text-[10px] font-bold px-2 py-0.5 rounded">
+                                {item.treatment}
+                              </div>
+                            )}
+                          </div>
 
-                      <button
-                        onClick={() => setDeletingItemId(item.id)}
-                        className="bg-rose-50 hover:bg-rose-100 text-rose-800 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1 border border-rose-200"
-                      >
-                        <Trash2 className="w-3 h-3 text-rose-600" />
-                        <span>Delete</span>
-                      </button>
+                          <div>
+                            <h5 className="font-serif font-bold text-base text-[#0B2545] line-clamp-1">{item.name}</h5>
+                            <div className="text-sm font-extrabold text-red-700 mt-0.5">{item.price}</div>
+                          </div>
+                        </div>
+
+                        {/* Card Action Buttons: View / Edit / Delete */}
+                        <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100">
+                          <button
+                            onClick={() => setViewingItem(item)}
+                            className="bg-slate-100 hover:bg-slate-200 text-slate-800 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1 border border-slate-200"
+                          >
+                            <Eye className="w-3 h-3 text-slate-600" />
+                            <span>View</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleOpenEditForm(item)}
+                            className="bg-blue-50 hover:bg-blue-100 text-blue-900 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1 border border-blue-200"
+                          >
+                            <Edit2 className="w-3 h-3 text-blue-700" />
+                            <span>Edit</span>
+                          </button>
+
+                          <button
+                            onClick={() => setDeletingItemId(item.id)}
+                            className="bg-rose-50 hover:bg-rose-100 text-rose-800 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1 border border-rose-200"
+                          >
+                            <Trash2 className="w-3 h-3 text-rose-600" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                /* System Settings Panels */
+                <div className="space-y-6">
+                  {/* Status Banner */}
+                  {(settingsSuccess || settingsError) && (
+                    <div className={`p-4 rounded-xl text-xs font-semibold flex items-center gap-2 border ${
+                      settingsSuccess 
+                        ? 'bg-emerald-50 border-emerald-200 text-emerald-800' 
+                        : 'bg-rose-50 border-rose-200 text-rose-800'
+                    }`}>
+                      {settingsSuccess ? (
+                        <>
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>{settingsSuccess}</span>
+                        </>
+                      ) : (
+                        <>
+                          <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                          <span>{settingsError}</span>
+                        </>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* WhatsApp Configuration Card */}
+                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-4">
+                      <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+                        <MessageSquare className="w-5 h-5 text-[#0F52BA]" />
+                        <div>
+                          <h4 className="font-serif font-bold text-base text-[#0B2545]">WhatsApp Integration</h4>
+                          <p className="text-[10px] text-slate-500">Configure public customer inquiry phone number</p>
+                        </div>
+                      </div>
+
+                      <form onSubmit={(e) => {
+                        e.preventDefault();
+                        if (!newWhatsapp.trim()) {
+                          setSettingsError('WhatsApp number cannot be empty.');
+                          return;
+                        }
+                        onUpdateWhatsappNumber(newWhatsapp);
+                        setSettingsSuccess('WhatsApp contact number updated successfully!');
+                        setSettingsError('');
+                      }} className="space-y-4">
+                        <div>
+                          <label className="block text-xs font-semibold text-slate-700 mb-1">WhatsApp Phone Number</label>
+                          <input
+                            type="text"
+                            value={newWhatsapp}
+                            onChange={(e) => setNewWhatsapp(e.target.value)}
+                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
+                            placeholder="e.g. +94 77 793 5306"
+                            required
+                          />
+                          <p className="text-[10px] text-slate-400 mt-1">
+                            Please include the country code. Formatting like spaces or plus symbols is fine; it will be automatically sanitized for order links.
+                          </p>
+                        </div>
+
+                        <div>
+                          <span className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Sanitized URL Link Preview:</span>
+                          <code className="block text-[10px] bg-slate-100 text-[#0F52BA] p-2 rounded mt-1 overflow-x-auto select-all font-mono font-bold">
+                            https://wa.me/{newWhatsapp.replace(/\D/g, '')}
+                          </code>
+                        </div>
+
+                        <button
+                          type="submit"
+                          className="bg-[#0F52BA] hover:bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg text-xs transition-colors shadow-md"
+                        >
+                          Update WhatsApp Number
+                        </button>
+                      </form>
+                    </div>
+
+                    {/* Password Configuration Card */}
+                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-4">
+                      <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
+                        <Key className="w-5 h-5 text-[#991B1B]" />
+                        <div>
+                          <h4 className="font-serif font-bold text-base text-[#0B2545]">Security Credentials</h4>
+                          <p className="text-[10px] text-slate-500">Update admin portal authorization password</p>
+                        </div>
+                      </div>
+
+                      <form onSubmit={(e) => {
+                        e.preventDefault();
+                        if (currentPwd !== adminPassword) {
+                          setSettingsError('Current password is incorrect.');
+                          setSettingsSuccess('');
+                          return;
+                        }
+                        if (newPwd.length < 4) {
+                          setSettingsError('New password must be at least 4 characters long.');
+                          setSettingsSuccess('');
+                          return;
+                        }
+                        if (newPwd !== confirmPwd) {
+                          setSettingsError('New password confirmation does not match.');
+                          setSettingsSuccess('');
+                          return;
+                        }
+                        onUpdateAdminPassword(newPwd);
+                        setSettingsSuccess('Admin password changed successfully!');
+                        setSettingsError('');
+                        setCurrentPwd('');
+                        setNewPwd('');
+                        setConfirmPwd('');
+                      }} className="space-y-4">
+                        <div className="grid grid-cols-1 gap-3">
+                          <div>
+                            <label className="block text-xs font-semibold text-slate-700 mb-1">Current Password</label>
+                            <input
+                              type="password"
+                              value={currentPwd}
+                              onChange={(e) => setCurrentPwd(e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
+                              required
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-semibold text-slate-700 mb-1">New Password</label>
+                            <input
+                              type="password"
+                              value={newPwd}
+                              onChange={(e) => setNewPwd(e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
+                              required
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-semibold text-slate-700 mb-1">Confirm New Password</label>
+                            <input
+                              type="password"
+                              value={confirmPwd}
+                              onChange={(e) => setConfirmPwd(e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <button
+                          type="submit"
+                          className="bg-[#991B1B] hover:bg-red-900 text-white font-semibold px-4 py-2 rounded-lg text-xs transition-colors shadow-md"
+                        >
+                          Change Password
+                        </button>
+                      </form>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
 
             </div>
           )}
