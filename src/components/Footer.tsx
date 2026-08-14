@@ -86,7 +86,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, whatsappNumber }) =
             </p>
             <p className="flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5 text-[#C9A227]" />
-              <span>desk@kskgemking.com</span>
+              <span>kskgemandgoldking@gmail.com</span>
             </p>
           </div>
 
